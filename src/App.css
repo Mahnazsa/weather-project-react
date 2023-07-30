@@ -1,0 +1,15 @@
+body {
+  font-family: Google Sans, arial, sans-serif;
+}
+
+.App {
+  max-width: 800px;
+    margin: 30px auto;
+}
+
+
+.App .footer {
+  margin-top: 10px;
+  color: #202124;
+  font-size: 11px;
+}
