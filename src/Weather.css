@@ -2,6 +2,8 @@
   border: 1px solid #ECEDEF;
   border-radius: 4px;
   padding: 16px;
+  align-items: center;
+  justify-content: center;
   
 }
 
@@ -42,4 +44,10 @@
   color: rgb(33, 33, 33);
   position: relative;
   top: -30px;
+}
+
+.Weather .loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,9 +1,35 @@
 import React from "react";
+import axios from "axios";
 import "./Weather.css";
+import { useState } from "react";
+import {ThreeDots} from  'react-loader-spinner';
+
 
 
 export default function Weather () {
-  return (
+  const [ready, setReady] = useState (false);
+  const [weatherData, setWeatherData] = useState ({});
+
+  function handleResponse (response) {
+    console.log(response.data);
+
+    setWeatherData ({
+      city: response.data.city,
+      date: "Saturday 10:00",
+      temperature: response.data.temperature.current,
+      humidity: response.data.temperature.humidity,
+      feelsLike: response.data.temperature["feels_like"],
+      wind: response.data.wind.speed,
+      description: response.data.condition.description,
+      iconUrl: "https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
+
+    })
+    
+    setReady (true);
+  }
+
+  if (ready) {
+    return (
     <div className="Weather">
       <form className="mt-3">
         <div className="row mt-3">
@@ -15,26 +41,49 @@ export default function Weather () {
           </div>
         </div>
       </form>
-      <h1>New York</h1>
+      <h1>{weatherData.city}</h1>
       <ul>
-        <li>Saturday 10:00</li>
-        <li>Partly cloudy</li>
+        <li>{weatherData.date}</li>
+        <li className="text-capitalize">{weatherData.description}</li>
       </ul>
+
       <div className="row mt-3">
         <div className="col-6">
           <div className="clearfix">
-          <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="Partly cloudy"
-           />
-          <span className="temperature">26</span> <span className="unit">°C</span></div>       
+          <img src={weatherData.iconUrl} alt={weatherData.description} />
+
+          <span className="temperature">{Math.round(weatherData.temperature)}</span> <span className="unit">°C</span></div>       
         </div>
         <div className="col-6">
           <ul>
-            <li>Precipitation: 5%</li>
-            <li>Humidity: 75%</li>
-            <li>Wind: 10 km/h</li>
+            <li>Feels Like: {Math.round(weatherData.feelsLike)}°C</li>
+            <li>Humidity: {weatherData.humidity}%</li>
+            <li>Wind: {weatherData.wind} km/h</li>
           </ul>
         </div>
       </div>
     </div>
   )
+  } else {
+    const apiKey = "4c50413a6ac362tb2b6od01fb33f6e87";
+    let city = "New York";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(handleResponse);
+
+    return (
+      <div className="loading-container">      
+        <ThreeDots 
+          height="80" 
+          width="80" 
+          radius="9"
+          color="#0D6AF4" 
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClassName=""
+          visible={true}
+        />
+      </div>
+    )
+  }
+  
 }
