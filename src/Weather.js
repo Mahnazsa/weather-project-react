@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import FormattedDate from "./FormattedDate";
 import "./Weather.css";
 import { useState } from "react";
 import {ThreeDots} from  'react-loader-spinner';
@@ -11,11 +12,10 @@ export default function Weather () {
   const [weatherData, setWeatherData] = useState ({});
 
   function handleResponse (response) {
-    console.log(response.data);
-
+    
     setWeatherData ({
       city: response.data.city,
-      date: "Saturday 10:00",
+      date: new Date(response.data.time*1000),
       temperature: response.data.temperature.current,
       humidity: response.data.temperature.humidity,
       feelsLike: response.data.temperature["feels_like"],
@@ -43,7 +43,8 @@ export default function Weather () {
       </form>
       <h1>{weatherData.city}</h1>
       <ul>
-        <li>{weatherData.date}</li>
+        <li> <FormattedDate date={weatherData.date} /> </li>
+
         <li className="text-capitalize">{weatherData.description}</li>
       </ul>
 
