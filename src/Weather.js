@@ -12,6 +12,7 @@ export default function Weather (props) {
   const [weatherData, setWeatherData] = useState ({});
 
   function handleResponse (response) {
+    console.log(response.data)
     
     setWeatherData ({
       city: response.data.city,
@@ -21,12 +22,13 @@ export default function Weather (props) {
       feelsLike: response.data.temperature["feels_like"],
       wind: response.data.wind.speed,
       description: response.data.condition.description,
-      iconUrl: "https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
+      iconUrl: `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`,
 
     })
     
     setReady (true);
   }
+  
 
   function search() {
     const apiKey = "4c50413a6ac362tb2b6od01fb33f6e87";

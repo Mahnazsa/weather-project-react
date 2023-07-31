@@ -30,7 +30,10 @@
 
 .Weather img {
   margin-right: 10px;
+  position: relative;
+  top:-20px;
 }
+
 .Weather .temperature {
   font-size: 64px;
   font-weight: 400;
