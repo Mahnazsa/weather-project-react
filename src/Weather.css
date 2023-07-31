@@ -49,7 +49,7 @@
   top: -30px;
 }
 
-.Weather .loading-container {
+.loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
