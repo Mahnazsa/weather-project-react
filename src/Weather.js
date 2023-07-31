@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
-import FormattedDate from "./FormattedDate";
 import "./Weather.css";
 import { useState } from "react";
 import {ThreeDots} from  'react-loader-spinner';
+import WeatherInfo from "./WeatherInfo";
 
 
 
@@ -41,28 +41,8 @@ export default function Weather () {
           </div>
         </div>
       </form>
-      <h1>{weatherData.city}</h1>
-      <ul>
-        <li> <FormattedDate date={weatherData.date} /> </li>
+      <WeatherInfo data={weatherData} />
 
-        <li className="text-capitalize">{weatherData.description}</li>
-      </ul>
-
-      <div className="row mt-3">
-        <div className="col-6">
-          <div className="clearfix">
-          <img src={weatherData.iconUrl} alt={weatherData.description} />
-
-          <span className="temperature">{Math.round(weatherData.temperature)}</span> <span className="unit">°C</span></div>       
-        </div>
-        <div className="col-6">
-          <ul>
-            <li>Feels Like: {Math.round(weatherData.feelsLike)}°C</li>
-            <li>Humidity: {weatherData.humidity}%</li>
-            <li>Wind: {weatherData.wind} km/h</li>
-          </ul>
-        </div>
-      </div>
     </div>
   )
   } else {
