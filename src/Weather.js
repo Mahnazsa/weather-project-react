@@ -2,9 +2,8 @@ import React from "react";
 import axios from "axios";
 import "./Weather.css";
 import { useState } from "react";
-import {ThreeDots} from  'react-loader-spinner';
 import WeatherInfo from "./WeatherInfo";
-
+import LoadingContainer from "./LoadingContainer";
 
 
 export default function Weather () {
@@ -51,20 +50,9 @@ export default function Weather () {
     let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(handleResponse);
 
-    return (
-      <div className="loading-container">      
-        <ThreeDots 
-          height="80" 
-          width="80" 
-          radius="9"
-          color="#0D6AF4" 
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          wrapperClassName=""
-          visible={true}
-        />
-      </div>
-    )
+    return (<LoadingContainer />)
+    
   }
+
   
 }
