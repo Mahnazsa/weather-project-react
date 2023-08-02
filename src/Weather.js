@@ -4,6 +4,7 @@ import "./Weather.css";
 import { useState } from "react";
 import WeatherInfo from "./WeatherInfo";
 import LoadingContainer from "./LoadingContainer";
+import WeatherForecast from "./WeatherForecast";
 
 
 export default function Weather (props) {
@@ -12,11 +13,11 @@ export default function Weather (props) {
   const [weatherData, setWeatherData] = useState ({});
 
   function handleResponse (response) {
-    console.log(response.data)
     
     setWeatherData ({
       city: response.data.city,
       date: new Date(response.data.time*1000),
+      coordinates: response.data.coordinates,
       temperature: response.data.temperature.current,
       humidity: response.data.temperature.humidity,
       feelsLike: response.data.temperature["feels_like"],
@@ -31,8 +32,7 @@ export default function Weather (props) {
   
 
   function search() {
-    const apiKey = "4c50413a6ac362tb2b6od01fb33f6e87";
-    
+    const apiKey = "4c50413a6ac362tb2b6od01fb33f6e87";    
     let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(handleResponse);
 
@@ -64,6 +64,11 @@ export default function Weather (props) {
         </div>
       </form>
       <WeatherInfo data={weatherData} />
+      
+      <WeatherForecast 
+        iconUrl={weatherData.iconUrl}
+        description={weatherData.description}
+        coordinates={weatherData.coordinates}/>
 
     </div>
   )
