@@ -27,7 +27,7 @@ export default function WeatherForecast (props) {
   }, [props.coordinates]);
 
   if (loaded) {
-    console.log(forecast);
+    //console.log(forecast);
 
     return (
       <div className="weatherForecast">
@@ -39,6 +39,8 @@ export default function WeatherForecast (props) {
                 <WeatherForecastDay data={dailyForecast} />
               </div>
             );
+          } else {
+             return (null)
           }
         })}
       </div>
